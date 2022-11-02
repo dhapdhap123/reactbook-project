@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../../components/auth/AuthForm';
 import { changeField, initializeForm, register } from '../../modules/auth';
 import { check } from '../../modules/user';
+import { withRouter } from 'react-router-dom';
 
-const RegisterForm = () => {
+const RegisterForm = ({ history }) => {
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
@@ -55,10 +56,9 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('check API 성공');
-      console.log(user);
+      history.push('/');
     }
-  }, [user]);
+  }, [history, user]);
 
   return (
     <AuthForm
