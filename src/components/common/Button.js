@@ -11,12 +11,10 @@ const StyledButton = styled.button`
   color: white;
   outline: none;
   cursor: pointer;
-
   background: ${palette.gray[8]};
   &:hover {
     background: ${palette.gray[6]};
   }
-
   ${(props) =>
     props.fullWidth &&
     css`
@@ -25,7 +23,6 @@ const StyledButton = styled.button`
       width: 100%;
       font-size: 1.125rem;
     `}
-
   ${(props) =>
     props.cyan &&
     css`
