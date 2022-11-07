@@ -10,13 +10,28 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './modules';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './modules/index';
+import { check, tempSetUser } from './modules/user';
 
 const SagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(SagaMiddleware)),
 );
+
+function loadUser() {
+  try {
+    const user = localStorage.getItem('user');
+    if (!user) return;
+
+    store.dispatch(tempSetUser(user));
+    store.dispatch(check());
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
+
 SagaMiddleware.run(rootSaga);
+loadUser();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
